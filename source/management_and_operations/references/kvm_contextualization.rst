@@ -4,7 +4,71 @@
 Open Cloud Contextualization
 ================================================================================
 
-Prepare the Virtual Machine Image
+Option 1: Prepare the Virtual Machine Image using Packer
+================================================================================
+
+Checkout one-apps repository
+
+.. prompt:: bash $ auto
+
+    $ git clone git@github.com:OpenNebula/one-apps.git
+
+Ensure you have all the `requirements <https://github.com/OpenNebula/one-apps?tab=readme-ov-file#requirements>`__
+and build some of the supported images using make
+
+.. code-block:: bash
+
+    Usage examples:
+        make <distro>          -- build just one distro
+        make <service>         -- build just one service
+
+        make all               -- build all distros and services
+        make all -j 4          -- build all in 4 parallel tasks
+        make distros           -- build all distros
+        make services          -- build all services
+
+        make context-linux     -- build context linux packages
+        make context-windows   -- build windows linux packages
+
+    Available distros:
+        alma8 alma9 alpine316 alpine317 alpine318 alt9 alt10 amazon2
+        centos7 centos8stream debian10 debian11 debian12 devuan3 devuan4
+        fedora37 fedora38 freebsd12 freebsd13 ol8 ol9 opensuse15 rocky8
+        rocky9 ubuntu2004 ubuntu2004min ubuntu2204 ubuntu2204min
+
+    Available services:
+        service_vnf service_wordpress service_OneKE
+
+Structure of the repository is following
+
+.. code-block:: bash
+
+    .
+    ├── appliances          # src for "service appliances"
+    │   ├── lib             # WordPress, VNF and OneKE
+    │   ├── OneKE
+    │   ...
+    │
+    ├── build               # target directory with built images
+    │
+    ├── context-linux       # src for linux context pacakges
+    │
+    ├── context-windows     # src for windows context pacakges
+    │
+    ├── Makefile            # for Packer orchestration
+    ├── Makefile.config
+    │
+    └── packer              # for each distro:
+        ├── alma            #   - packer template
+        ├── alpine          #   - customization scripts (*.sh)
+        ...                 #   - cloud-init.yaml userdata (if needed)
+        └── ubuntu          #   + postprocessing script for all
+
+Should the desired distribution you need be missing, please file an issue
+in `one-apps repository <https://github.com/OpenNebula/one-apps>`__
+
+
+Option 2: Prepare the Virtual Machine Image manually
 ================================================================================
 
 Step 1. Start a VM with the OS you want to Customize
