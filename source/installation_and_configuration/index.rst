@@ -15,6 +15,7 @@ The Installation and Configuration Guide provides instructions on how to carry o
 
    Front-end Installation <frontend_installation/index>
    Large-scale Deployment <large-scale_deployment/index>
+   Automating installation with one-deploy <one-deploy/index>
    High Availability <ha/index>
    Data Center Federation <data_center_federation/index>
    OpenNebula Services <opennebula_services/index>
